@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,4 +109,44 @@
   </style>
 </head>
 <body>
+<!-- School Info Section (Hidden Initially) -->
+  <header id="school-info-header" style="display: none;">
+    <h1>+2 उत्क्रमित माध्यमिक विद्यालय भालपट्टी</h1>
+    <p>गुणवत्तापूर्ण शिक्षा के लिए समर्पित</p>
+  </header>
+
+                <!--Scrooling -->
+
+<marquee behavior="scroll" direction="left" scrollamount="8" style="font-size: 20px; text-align: center; color: #ffffff; text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000">
+     ~~ Created By Ajit Kumar ~~
+</marquee>
+  <!-- Login/Register Section -->
+  <div class="container" id="login-container">
+    <h2>लॉगिन / रजिस्टर</h2>
+    
+
+
+    <!-- Login Form -->
+    <form id="login-form">
+      <input type="text" id="username" placeholder="उपयोगकर्ता नाम" required>
+      <input type="password" id="password" placeholder="पासवर्ड" required>
+      <button type="submit">लॉगिन करें</button> 
+      <div class="link">
+        <a href="#" id="forgot-password-link">पासवर्ड भूल गए?</a>
+        <p>नया खाता बनाई ? <a href="#" id="register-link">रजिस्टर करें</a></p>
+      </div>
+    </form>
+
+    <!-- Register Form (Initially Hidden) -->
+    <form id="register-form" style="display: none;">
+      <input type="text" id="new-username" placeholder="उपयोगकर्ता नाम" required>
+      <input type="email" id="new-email" placeholder="ईमेल" required>
+      <input type="password" id="new-password" placeholder="पासवर्ड" required>
+      <button type="submit">रजिस्टर करें</button>
+      <div class="link">
+        <p>पहले से खाता है? <a href="#" id="login-link">लॉगिन करें</a></p>
+      </div>
+    </form>
+  </div>
+
 
