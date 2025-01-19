@@ -250,7 +250,7 @@ border-collapse: collapse; text-align: center; font-size:19px;">
       <section id="contact">
             <h2>संपर्क करें</h2>
             <li>पता: भालपट्टी, दरभंगा, बिहार - 847239</li>
-            <li>फोन: 9999999999</li>
+            <li>फोन: 9504797910</li>
             <li>ईमेल: demo@gmail.com</li>
         </section>
            
