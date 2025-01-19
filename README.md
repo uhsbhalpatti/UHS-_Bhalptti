@@ -194,7 +194,7 @@
         <li>सभी विद्यार्थियों के लिए कंप्यूटर लैब की सुविधा</li>
         <li>अच्छी खेल सुविधाएं और वार्षिक खेल कूद प्रतियोगिता</li>
       </ul>
-<section id="timetable">
+
 <h2 style="text-aling: center;
 font-family: arial, sans-serif;">School Timetanle</h2>
 <table border="3" style="width: 100%;
@@ -230,7 +230,7 @@ border-collapse: collapse; text-align: center; font-size:19px;">
 <td>political science</td>
 <td>priya mam</td>
 <tr>
-<td colspan="5"style="text-align: center; background-color:  (#ff0000)a;">Lunch Break (3:00 PM -3:30PM)</td>
+
 </tr>
 <td>5</td>
 <tr style="background-color: #f2f2f2;">
@@ -258,9 +258,7 @@ border-collapse: collapse; text-align: center; font-size:19px;">
       
    <!-- Teachers Information Section -->
 <section id="teachers-info">
-    <h2>हमारे शिक्षक</h2>
-    <p>हमारे शिक्षक विषय विशेषज्ञ हैं, जिनका शिक्षा क्षेत्र में वर्षों का अनुभव है।</p>
- 
+  
 
 <h2 style="text-aling: center;
 font-family: arial, sans-serif;"></h2>
@@ -320,11 +318,7 @@ border-collapse: collapse; text-align: center; font-size:16px;">
 </thody>
  </table>
 </section>
- <h3>यहां पर आपको स्कूल की समय-समय की अपडेट मिलती रहेगी:</h3>
-      <ul>
-
-        <li>...........................................</li>
-</ul>           
+ 
 <h2 style="text-aling: center;
 font-family: arial, sans-serif;"></h2>
 <table border="3" style="width: 100%;
