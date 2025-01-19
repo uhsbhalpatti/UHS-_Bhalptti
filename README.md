@@ -196,7 +196,7 @@
       </ul>
 
 <h2 style="text-aling: center;
-font-family: arial, sans-serif;">School Timetanle</h2>
+font-family: arial, sans-serif;"></h2>
 <table border="3" style="width: 100%;
 border-collapse: collapse; text-align: center; font-size:19px;">
 <thead style="background-color: #4CAF50;">
