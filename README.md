@@ -251,7 +251,7 @@ border-collapse: collapse; text-align: center; font-size:19px;">
             <h2>संपर्क करें</h2>
             <li>पता: भालपट्टी, दरभंगा, बिहार - 847239</li>
             <li>फोन: 9999999999</li>
-            <li>ईमेल: demo@gmail.com</li>
+            <li>ईमेल: ajit@gmail.com</li>
         </section>
            
     </div>
@@ -334,10 +334,7 @@ border-collapse: collapse; text-align: center; font-size:16px;">
 <td>26/01/2025</td>
 <td>गणतंत्र देवस<td>
 </tr>
-<td>15/08/2025</td>
-<td>स्वतंत्रता देवस</td>
-</table>
-</thead>
+
 
 
     <!-- Add this inside your HTML body -->
@@ -376,7 +373,7 @@ border-collapse: collapse; text-align: center; font-size:16px;">
     }
 </style>
 
-    </div>
+    
     
       
   <script>
