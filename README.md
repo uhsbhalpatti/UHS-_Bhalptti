@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,7 +109,8 @@
   </style>
 </head>
 <body>
-<!-- School Info Section (Hidden Initially) -->
+
+  <!-- School Info Section (Hidden Initially) -->
   <header id="school-info-header" style="display: none;">
     <h1>+2 उत्क्रमित माध्यमिक विद्यालय भालपट्टी</h1>
     <p>गुणवत्तापूर्ण शिक्षा के लिए समर्पित</p>
@@ -148,7 +149,8 @@
       </div>
     </form>
   </div>
-<!-- Display School Information After Login/Register -->
+
+  <!-- Display School Information After Login/Register -->
   <div id="school-info-container" style="display: none;">
     <div class="school-info">
       <h3>स्कूल के बारे में:</h3>
@@ -465,4 +467,3 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </body>
 </html>
-
