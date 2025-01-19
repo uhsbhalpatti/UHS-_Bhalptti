@@ -1,9 +1,9 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>+2 उत्क्रमित माध्यमिक विद्यालय भालपट्टी</title>
+  <title>+2 उत्क्रमित माध्यमिक विद्यालय भाल पट्टी</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -112,7 +112,7 @@
 
   <!-- School Info Section (Hidden Initially) -->
   <header id="school-info-header" style="display: none;">
-    <h1>+2 उत्क्रमित माध्यमिक विद्यालय भाल पट्टी</h1>
+    <h1>+2 उत्क्रमित माध्यमिक विद्यालय भालपट्टी</h1>
     <p>गुणवत्तापूर्ण शिक्षा के लिए समर्पित</p>
   </header>
 
@@ -250,7 +250,7 @@ border-collapse: collapse; text-align: center; font-size:19px;">
       <section id="contact">
             <h2>संपर्क करें</h2>
             <li>पता: भालपट्टी, दरभंगा, बिहार - 847239</li>
-            <li>फोन: 9504797910</li>
+            <li>फोन: 9999999999</li>
             <li>ईमेल: demo@gmail.com</li>
         </section>
            
