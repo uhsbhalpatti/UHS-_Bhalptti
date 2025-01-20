@@ -148,7 +148,6 @@
         <p>पहले से खाता है? <a href="#" id="login-link">लॉगिन करें</a></p>
       </div>
     </form>
-  </div>
 
   <!-- Display School Information After Login/Register -->
   <div id="school-info-container" style="display: none;">
@@ -254,12 +253,9 @@ border-collapse: collapse; text-align: center; font-size:19px;">
             <li>ईमेल: ajit@gmail.com</li>
         </section>
            
-    </div>
-      
-   <!-- Teachers Information Section -->
+    
+    
 <section id="teachers-info">
-  
-
 <h2 style="text-aling: center;
 font-family: arial, sans-serif;"></h2>
 <table border="3" style="width: 100%;
@@ -319,21 +315,7 @@ border-collapse: collapse; text-align: center; font-size:16px;">
  </table>
 </section>
  
-<h2 style="text-aling: center;
-font-family: arial, sans-serif;"></h2>
-<table border="3" style="width: 100%;
-border-collapse: collapse; text-align: center; font-size:16px;">
-<thead style="background-color: #CCC;"><section id="timetable">
-<tr>
-<th>date</th>
-<th>Information</th>
-</tr>
-</thead>
-<thody>
-<tr>
-<td>26/01/2025</td>
-<td>गणतंत्र देवस<td>
-</tr>
+
 
 
 
