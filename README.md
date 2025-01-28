@@ -3,201 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Progress Tracker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>School Attendance System</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            color: #fff;
         }
+
         .container {
             max-width: 800px;
-            margin: 30px auto; 
-            background: rgba(255, 255, 255, 0.1);
+            margin: auto;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             text-align: center;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-        .input-group {
-            margin-bottom: 15px;
-        }
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        .input-group input, .input-group textarea, .input-group select {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            outline: none;
-            background: rgba(255, 255, 255, 0.8);
             color: #333;
-            font-size: 16px;
         }
-        .button {
-            text-align: center;
+
+        h2 {
+            color: #333;
             margin-top: 20px;
         }
-        .button button {
-            background-color: #00c853;
-            color: #fff;
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+        }
+
+        input, select {
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 18px;
-            font-weight: 500;
-            transition: background 0.3s;
+            transition: background-color 0.3s;
         }
-        .button button:hover {
-            background-color: #00a347;
+
+        button:hover {
+            background-color: #45a049;
         }
-        .message, .calendar-container {
+
+        #studentProfile, #attendanceStatus, #attendanceDetails {
             margin-top: 20px;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .calendar-container {
-            background: rgba(255, 255, 255, 0.8);
-            color: #333;
-        }
-        .message.good { background-color: #81c784; color: #1b5e20; }
-        .message.average { background-color: #fff176; color: #f57f17; }
-        .message.bad { background-color: #e57373; color: #b71c1c; }
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 14px;
-            color: #ccc;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📚 Student Progress Tracker with Calendar</h1>
-        <div class="input-group">
-            <label for="name">अपना नाम दर्ज करें:</label>
-            <input type="text" id="name" placeholder="अपना नाम लिखें">
+        <h1>School Attendance System</h1>
+
+        <!-- स्टूडेंट डाटा एंट्री -->
+        <div class="student-entry">
+            <h2>Enter Student Details</h2>
+            <form id="studentForm">
+                <label for="name">Student Name:</label>
+                <input type="text" id="name" required>
+
+                <label for="class">Class:</label>
+                <select id="class" required>
+                    <option value="11th">11th</option>
+                </select>
+
+                <label for="stream">Stream:</label>
+                <select id="stream" required>
+                    
+                    <option value="Arts">Arts</option>
+                  
+                </select>
+
+                <label for="section">Section:</label>
+                <select id="section" required>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
+
+                <label for="rollNo">Roll Number:</label>
+                <input type="number" id="rollNo" required>
+
+                <button type="submit">Submit</button>
+            </form>
         </div>
-        <div class="input-group">
-            <label for="hours">आज आपने कितने घंटे पढ़ाई की?</label>
-            <input type="number" id="hours" placeholder="घंटों की संख्या दर्ज करें">
+
+        <!-- अटेंडेंस रिकॉर्ड -->
+        <div class="attendance">
+            <h2>Attendance Record</h2>
+            <form id="attendanceForm">
+                <label for="searchRollNo">Search by Roll No:</label>
+                <input type="number" id="searchRollNo" placeholder="Enter Roll Number" required>
+
+                <label for="searchSection">Select Section:</label>
+                <select id="searchSection" required>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
+
+                <button type="button" onclick="searchStudent()">Search</button>
+            </form>
+
+            <div id="studentProfile"></div>
+
+            <div id="attendanceStatus" style="display:none;">
+                <label for="status">Attendance:</label>
+                <select id="status">
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                </select>
+                <label for="date">Date:</label>
+                <input type="date" id="date">
+                <button type="button" onclick="submitAttendance()">Submit Attendance</button>
+            </div>
         </div>
-        <div class="input-group">
-            <label for="school-hours">स्कूल के घंटे (12:00 PM - 5:00 PM)आपने कितने घंटे पढ़ाई की?</label>
-            <select id="school-hours">
-                <option value="5">5 घंटे</option>
-                <option value="4">4 घंटे</option>
-                <option value="3">3 घंटे</option>
-                <option value="2">2 घंटे</option>
-                <option value="1">1 घंटे</option>
-                <option value="0">0 घंटे</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="comments">आज का अनुभव कैसा रहा?</label>
-            <textarea id="comments" rows="4" placeholder="अपना अनुभव साझा करें..."></textarea>
-        </div>
-        <div class="button">
-            <button onclick="trackProgress()">सबमिट करें</button>
-        </div>
-        <div id="message" class="message"></div>
-        <div class="calendar-container" id="calendar">
-            <h2>प्रोग्रेस कैलेंडर</h2>
-            <ul id="progress-list">
-                <!-- Data will be appended here -->
-            </ul>
+
+        <!-- अटेंडेंस डिटेल्स -->
+        <div class="attendance-details">
+            <h2>Attendance Records</h2>
+            <form id="recordSearchForm">
+                <label for="searchName">Search by Student Name:</label>
+                <input type="text" id="searchName" placeholder="Enter Student Name">
+                <button type="button" onclick="searchAttendance()">Search</button>
+            </form>
+
+            <div id="attendanceDetails"></div>
         </div>
     </div>
 
-    <footer>
-        © 2025 Student Progress Tracker | प्रेरणा के साथ पढ़ाई करें!
-    </footer>
-
     <script>
-        let progressData = [];
+        // लोकल स्टोरेज से स्टूडेंट डेटा लोड करें, यदि पहले से मौजूद हो
+        let studentData = JSON.parse(localStorage.getItem('studentData')) || [];
 
-        function trackProgress() {
-            const name = document.getElementById('name').value.trim();
-            const hours = document.getElementById('hours').value;
-            const schoolHours = document.getElementById('school-hours').value;
-            const comments = document.getElementById('comments').value.trim();
-            const message = document.getElementById('message');
+        // स्टूडेंट डेटा सबमिट करना
+        document.getElementById('studentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let name = document.getElementById('name').value;
+            let className = document.getElementById('class').value;
+            let stream = document.getElementById('stream').value;
+            let section = document.getElementById('section').value;
+            let rollNo = document.getElementById('rollNo').value;
 
-            if (!name || !hours) {
-                message.innerHTML = 'कृपया अपना नाम और पढ़ाई के घंटे दर्ज करें।';
-                message.className = 'message bad';
-                return;
-            }
+            // चेक करें कि क्लास 11th है या नहीं
+            if(className === '11th') {
+                let student = {
+                    name: name,
+                    class: className,
+                    stream: stream,
+                    section: section,
+                    rollNo: rollNo,
+                    attendance: []
+                };
 
-            const totalHours = parseInt(hours) + parseInt(schoolHours);
-            const date = new Date().toLocaleDateString();
-            const newData = { date, name, totalHours, comments };
-
-            // डेटा को डुप्लिकेशन से बचाने के लिए फ़िल्टर करें
-            const existingData = progressData.find(data => data.date === date && data.name === name);
-            if (!existingData) {
-                progressData.push(newData);
-                saveProgressToLocalStorage();
-            }
-
-            let feedback;
-            if (totalHours >= 8) {
-                feedback = `शानदार काम, ${name}! आपने कुल ${totalHours} घंटे पढ़ाई की। ऐसे ही मेहनत करते रहें!`;
-                message.className = 'message good';
-            } else if (totalHours >= 6) {
-                feedback = `अच्छा प्रयास, ${name}! आपने कुल ${totalHours} घंटे पढ़ाई की। लेकिन और मेहनत करें!`;
-                message.className = 'message average';
+                studentData.push(student);
+                localStorage.setItem('studentData', JSON.stringify(studentData)); // डेटा को लोकल स्टोरेज में सेव करें
+                alert("Student Data Submitted Successfully!");
+                document.getElementById('studentForm').reset();
             } else {
-                feedback = `काफी कम पढ़ाई की, ${name}. आपको ${totalHours} घंटे से ज्यादा पढ़ाई करनी चाहिए।`;
-                message.className = 'message bad';
+                alert("Only 11th class is allowed.");
             }
+        });
 
-            message.innerHTML = `
-                <p>${feedback}</p>
-                <p>आपका अनुभव: ${comments || 'कोई अनुभव साझा नहीं किया गया।'}</p>
-            `;
-
-            updateCalendar();
-        }
-
-        function updateCalendar() {
-            const list = document.getElementById('progress-list');
-            list.innerHTML = '';
-            progressData.forEach(data => {
-                const listItem = document.createElement('li');
-                listItem.innerText = `${data.date} - ${data.name}: ${data.totalHours} घंटे (अनुभव: ${data.comments || 'नहीं दिया गया'})`;
-                list.appendChild(listItem);
-            });
-        }
-
-        // लोकल स्टोरेज में डेटा स्टोर करें
-        function saveProgressToLocalStorage() {
-            localStorage.setItem('progressData', JSON.stringify(progressData));
-        }
-
-        // लोकल स्टोरेज से डेटा लोड करें
-        function loadProgressFromLocalStorage() {
-            const storedData = localStorage.getItem('progressData');
-            if (storedData) {
-                progressData = JSON.parse(storedData);
-                updateCalendar();
+        // स्टूडेंट सर्च करना
+        function searchStudent() {
+            let rollNo = document.getElementById('searchRollNo').value;
+            let section = document.getElementById('searchSection').value;
+            
+            // रोल नंबर और सेक्शन के आधार पर स्टूडेंट ढूंढना
+            let student = studentData.find(s => s.rollNo == rollNo && s.section == section);
+            
+            if(student) {
+                let profile = `
+                    <h3>Student Profile</h3>
+                    <p>Name: ${student.name}</p>
+                    <p>Class: ${student.class}</p>
+                    <p>Stream: ${student.stream}</p>
+                    <p>Section: ${student.section}</p>
+                    <p>Roll No: ${student.rollNo}</p>
+                `;
+                document.getElementById('studentProfile').innerHTML = profile;
+                document.getElementById('attendanceStatus').style.display = 'block';
+            } else {
+                document.getElementById('studentProfile').innerHTML = "<p>Student not found!</p>";
             }
         }
 
-        // पेज लोड होने पर पुराना डेटा लोड करें
-        document.addEventListener('DOMContentLoaded', loadProgressFromLocalStorage);
+        // अटेंडेंस सबमिट करना
+        function submitAttendance() {
+            let rollNo = document.getElementById('searchRollNo').value;
+            let section = document.getElementById('searchSection').value;
+            let status = document.getElementById('status').value;
+            let date = document.getElementById('date').value;
+
+            let student = studentData.find(s => s.rollNo == rollNo && s.section == section);
+
+            if(student) {
+                student.attendance.push({ date: date, status: status });
+                localStorage.setItem('studentData', JSON.stringify(studentData)); // अपडेटेड डेटा को लोकल स्टोरेज में सेव करें
+                alert("Attendance Submitted Successfully!");
+                document.getElementById('attendanceStatus').style.display = 'none';
+            }
+        }
+
+        // अटेंडेंस रिकॉर्ड सर्च करना
+        function searchAttendance() {
+            let searchName = document.getElementById('searchName').value;
+            let student = studentData.find(s => s.name.toLowerCase().includes(searchName.toLowerCase()));
+
+            if(student) {
+                let attendanceDetails = `
+                    <h3>Attendance Record for ${student.name}</h3>
+                    <ul>
+                        ${student.attendance.map(att => `<li>${att.date}: ${att.status}</li>`).join('')}
+                    </ul>
+                `;
+                document.getElementById('attendanceDetails').innerHTML = attendanceDetails;
+            } else {
+                document.getElementById('attendanceDetails').innerHTML = "<p>Student not found!</p>";
+            }
+        }
     </script>
 </body>
 </html>
