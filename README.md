@@ -3,244 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Attendance System</title>
+    <title>Attendance System</title>
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut } from 'https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js';
+        import { getDatabase, ref, set, push, get } from 'https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js';
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDNvb3-UdC61ojcTrIVnVWwEFeH82OIX_g",
+            authDomain: "edugine-1.firebaseapp.com",
+            databaseURL: "https://edugine-1-default-rtdb.firebaseio.com",
+            projectId: "edugine-1",
+            storageBucket: "edugine-1.firebasestorage.app",
+            messagingSenderId: "859662404389",
+            appId: "1:859662404389:web:1e80d9ec06d300e30168cc",
+            measurementId: "G-LY01R016PN"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+        // Function to save student data
+        window.submitStudentData = () => {
+            const studentName = document.getElementById('student-name').value;
+            const studentSection = document.getElementById('student-section').value;
+            const rollNumber = document.getElementById('roll-number').value;
+
+            if (!studentName || !studentSection || !rollNumber) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            const studentRef = ref(database, 'students/11'); // Only 11th class students
+            const newStudentRef = push(studentRef);
+            set(newStudentRef, {
+                name: studentName,
+                rollNumber: rollNumber,
+                section: studentSection
+            }).then(() => {
+                alert("Student Data Saved Successfully");
+                document.getElementById('student-form').reset();
+            }).catch((error) => {
+                alert("Error: " + error.message);
+            });
+        };
+
+        // Function to submit attendance
+        window.submitAttendance = () => {
+            const rollNumber = document.getElementById('attendance-roll-number').value;
+            const attendanceSection = document.getElementById('attendance-section').value;
+            const attendanceDate = document.getElementById('attendance-date').value;
+            const attendanceStatus = document.querySelector('input[name="attendance"]:checked').value;
+
+            if (!rollNumber || !attendanceSection || !attendanceDate || !attendanceStatus) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Searching for student based on roll number and section
+            const studentRef = ref(database, 'students/11');
+            get(studentRef).then((snapshot) => {
+                let studentFound = false;
+                snapshot.forEach((childSnapshot) => {
+                    const studentData = childSnapshot.val();
+                    if (studentData.rollNumber == rollNumber && studentData.section == attendanceSection) {
+                        studentFound = true;
+                        const attendanceRef = ref(database, `attendance/11/${attendanceDate}/${childSnapshot.key}`);
+                        set(attendanceRef, {
+                            rollNumber: rollNumber,
+                            section: studentData.section,
+                            attendanceStatus: attendanceStatus,
+                            name: studentData.name
+                        }).then(() => {
+                            alert("Attendance Submitted Successfully");
+                            document.getElementById('attendance-form').reset();
+                        }).catch((error) => {
+                            alert("Error: " + error.message);
+                        });
+                    }
+                });
+                if (!studentFound) {
+                    alert("Student not found");
+                }
+            }).catch((error) => {
+                alert("Error: " + error.message);
+            });
+        };
+
+    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
             color: #333;
+        }
+
+        #content {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
-            color: #333;
-            margin-top: 20px;
+            text-align: center;
+            font-size: 32px;
+            color: #2C3E50;
         }
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin: 10px 0 5px;
-        }
-
-        input, select {
-            padding: 8px;
+        input, select, button {
+            width: 100%;
+            padding: 10px;
             margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
         }
 
         button {
-            padding: 10px;
-            background-color: #4CAF50;
+            background-color: #3498db;
             color: white;
-            border: none;
-            border-radius: 4px;
+            font-size: 18px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            border: none;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #2980b9;
         }
 
-        #studentProfile, #attendanceStatus, #attendanceDetails {
-            margin-top: 20px;
+        .attendance-options {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .attendance-options input {
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>School Attendance System</h1>
 
-        <!-- स्टूडेंट डाटा एंट्री -->
-        <div class="student-entry">
-            <h2>Enter Student Details</h2>
-            <form id="studentForm">
-                <label for="name">Student Name:</label>
-                <input type="text" id="name" required>
+    <div id="content">
+        <h2>Student Attendance System</h2>
 
-                <label for="class">Class:</label>
-                <select id="class" required>
-                    <option value="11th">11th</option>
-                </select>
+        <!-- Student Data Entry Form -->
+        <form id="student-form">
+            <h3>Enter Student Data</h3>
+            <input type="text" id="student-name" placeholder="Enter Student Name" required>
+            <select id="student-section" required>
+                <option value="">Select Section</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+            </select>
+            <input type="number" id="roll-number" placeholder="Enter Roll Number" required>
+            <button type="button" onclick="submitStudentData()">Submit Student Data</button>
+        </form>
 
-                <label for="stream">Stream:</label>
-                <select id="stream" required>
-                    
-                    <option value="Arts">Arts</option>
-                  
-                </select>
+        <hr>
 
-                <label for="section">Section:</label>
-                <select id="section" required>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                </select>
-
-                <label for="rollNo">Roll Number:</label>
-                <input type="number" id="rollNo" required>
-
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-
-        <!-- अटेंडेंस रिकॉर्ड -->
-        <div class="attendance">
-            <h2>Attendance Record</h2>
-            <form id="attendanceForm">
-                <label for="searchRollNo">Search by Roll No:</label>
-                <input type="number" id="searchRollNo" placeholder="Enter Roll Number" required>
-
-                <label for="searchSection">Select Section:</label>
-                <select id="searchSection" required>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                </select>
-
-                <button type="button" onclick="searchStudent()">Search</button>
-            </form>
-
-            <div id="studentProfile"></div>
-
-            <div id="attendanceStatus" style="display:none;">
-                <label for="status">Attendance:</label>
-                <select id="status">
-                    <option value="Present">Present</option>
-                    <option value="Absent">Absent</option>
-                </select>
-                <label for="date">Date:</label>
-                <input type="date" id="date">
-                <button type="button" onclick="submitAttendance()">Submit Attendance</button>
+        <!-- Attendance Submission Form -->
+        <form id="attendance-form">
+            <h3>Submit Attendance</h3>
+            <select id="attendance-section" required>
+                <option value="">Select Section</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+            </select>
+            <input type="number" id="attendance-roll-number" placeholder="Enter Roll Number" required>
+            <input type="date" id="attendance-date" required>
+            <div class="attendance-options">
+                <label><input type="radio" name="attendance" value="Present"> Present</label>
+                <label><input type="radio" name="attendance" value="Absent"> Absent</label>
             </div>
-        </div>
-
-        <!-- अटेंडेंस डिटेल्स -->
-        <div class="attendance-details">
-            <h2>Attendance Records</h2>
-            <form id="recordSearchForm">
-                <label for="searchName">Search by Student Name:</label>
-                <input type="text" id="searchName" placeholder="Enter Student Name">
-                <button type="button" onclick="searchAttendance()">Search</button>
-            </form>
-
-            <div id="attendanceDetails"></div>
-        </div>
+            <button type="button" onclick="submitAttendance()">Submit Attendance</button>
+        </form>
     </div>
 
-    <script>
-        // लोकल स्टोरेज से स्टूडेंट डेटा लोड करें, यदि पहले से मौजूद हो
-        let studentData = JSON.parse(localStorage.getItem('studentData')) || [];
-
-        // स्टूडेंट डेटा सबमिट करना
-        document.getElementById('studentForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            let name = document.getElementById('name').value;
-            let className = document.getElementById('class').value;
-            let stream = document.getElementById('stream').value;
-            let section = document.getElementById('section').value;
-            let rollNo = document.getElementById('rollNo').value;
-
-            // चेक करें कि क्लास 11th है या नहीं
-            if(className === '11th') {
-                let student = {
-                    name: name,
-                    class: className,
-                    stream: stream,
-                    section: section,
-                    rollNo: rollNo,
-                    attendance: []
-                };
-
-                studentData.push(student);
-                localStorage.setItem('studentData', JSON.stringify(studentData)); // डेटा को लोकल स्टोरेज में सेव करें
-                alert("Student Data Submitted Successfully!");
-                document.getElementById('studentForm').reset();
-            } else {
-                alert("Only 11th class is allowed.");
-            }
-        });
-
-        // स्टूडेंट सर्च करना
-        function searchStudent() {
-            let rollNo = document.getElementById('searchRollNo').value;
-            let section = document.getElementById('searchSection').value;
-            
-            // रोल नंबर और सेक्शन के आधार पर स्टूडेंट ढूंढना
-            let student = studentData.find(s => s.rollNo == rollNo && s.section == section);
-            
-            if(student) {
-                let profile = `
-                    <h3>Student Profile</h3>
-                    <p>Name: ${student.name}</p>
-                    <p>Class: ${student.class}</p>
-                    <p>Stream: ${student.stream}</p>
-                    <p>Section: ${student.section}</p>
-                    <p>Roll No: ${student.rollNo}</p>
-                `;
-                document.getElementById('studentProfile').innerHTML = profile;
-                document.getElementById('attendanceStatus').style.display = 'block';
-            } else {
-                document.getElementById('studentProfile').innerHTML = "<p>Student not found!</p>";
-            }
-        }
-
-        // अटेंडेंस सबमिट करना
-        function submitAttendance() {
-            let rollNo = document.getElementById('searchRollNo').value;
-            let section = document.getElementById('searchSection').value;
-            let status = document.getElementById('status').value;
-            let date = document.getElementById('date').value;
-
-            let student = studentData.find(s => s.rollNo == rollNo && s.section == section);
-
-            if(student) {
-                student.attendance.push({ date: date, status: status });
-                localStorage.setItem('studentData', JSON.stringify(studentData)); // अपडेटेड डेटा को लोकल स्टोरेज में सेव करें
-                alert("Attendance Submitted Successfully!");
-                document.getElementById('attendanceStatus').style.display = 'none';
-            }
-        }
-
-        // अटेंडेंस रिकॉर्ड सर्च करना
-        function searchAttendance() {
-            let searchName = document.getElementById('searchName').value;
-            let student = studentData.find(s => s.name.toLowerCase().includes(searchName.toLowerCase()));
-
-            if(student) {
-                let attendanceDetails = `
-                    <h3>Attendance Record for ${student.name}</h3>
-                    <ul>
-                        ${student.attendance.map(att => `<li>${att.date}: ${att.status}</li>`).join('')}
-                    </ul>
-                `;
-                document.getElementById('attendanceDetails').innerHTML = attendanceDetails;
-            } else {
-                document.getElementById('attendanceDetails').innerHTML = "<p>Student not found!</p>";
-            }
-        }
-    </script>
 </body>
 </html>
