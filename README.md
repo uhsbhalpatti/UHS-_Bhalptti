@@ -156,6 +156,19 @@
         input, select, button { width: 100%; padding: 10px; margin: 10px 0; }
         button { background: #3498db; color: white; border: none; }
         button:hover { background: #2980b9; }
+    @media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+    }
+    
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+}
     </style>
 </head>
 <body>
