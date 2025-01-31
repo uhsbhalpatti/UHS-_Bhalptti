@@ -12,14 +12,14 @@
 
         // Firebase Configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyDNvb3-UdC61ojcTrIVnVWwEFeH82OIX_g",
-            authDomain: "edugine-1.firebaseapp.com",
-            databaseURL: "https://edugine-1-default-rtdb.firebaseio.com",
-            projectId: "edugine-1",
-            storageBucket: "edugine-1.firebasestorage.app",
-            messagingSenderId: "859662404389",
-            appId: "1:859662404389:web:1e80d9ec06d300e30168cc",
-            measurementId: "G-LY01R016PN"
+            apiKey: "AIzaSyDrd-WaRLM6C2Z5ZlCkhN20sXUObxUUYX0",
+            authDomain: "edugine-01.firebaseapp.com",
+            databaseURL: "https://edugine-01-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "edugine-01",
+            storageBucket: "edugine-01.firebasestorage.app",
+            messagingSenderId: "556004873116",
+            appId: "1:556004873116:web:e1a41b28052a88d0432e59",
+            measurementId: "G-MVSWT657FP"
         };
 
         // Initialize Firebase
@@ -43,7 +43,7 @@
                 rollNumber: rollNumber,
                 section: section
             }).then(() => {
-                alert("Student added!");
+                alert("स्टूडेंट जोड़ा गया!");
                 document.getElementById('student-form').reset();
             }).catch(error => {
                 alert("Error: " + error.message);
@@ -58,7 +58,7 @@
             const status = document.querySelector('input[name="attendance"]:checked');
 
             if (!rollNumber || !section || !date || !status) {
-                alert("please flip all !");
+                alert("सभी फ़ील्ड भरें!");
                 return;
             }
 
